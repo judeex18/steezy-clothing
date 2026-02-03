@@ -37,7 +37,7 @@ export default function Admin() {
       });
 
       if (error) throw error;
-      
+
       window.location.reload();
     } catch (error) {
       setError(error.message);
