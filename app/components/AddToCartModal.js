@@ -75,12 +75,12 @@ export default function AddToCartModal({ isOpen, onClose, product }) {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <button
-              onClick={onClose}
-              className="flex-1 bg-gray-100 text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300"
+            <Link
+              href="/products"
+              className="flex-1 bg-gray-100 text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300 text-center"
             >
-              Continue Shopping
-            </button>
+              Shop More
+            </Link>
             <Link
               href="/cart"
               className="flex-1 bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 transition-all duration-300 text-center"

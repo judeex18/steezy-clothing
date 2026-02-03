@@ -21,10 +21,12 @@ export default function AdminProducts() {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
+    image: "",
     image_url: "",
     description: "",
     category: "",
     sizes: [],
+    colors: [],
     stock: "",
   });
   const [imageFile, setImageFile] = useState(null);
@@ -62,10 +64,13 @@ export default function AdminProducts() {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    if (name === "sizes") {
+    if (name === "sizes" || name === "colors") {
       setFormData({
         ...formData,
-        [name]: value.split(",").map((s) => s.trim()),
+        [name]: value
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s),
       });
     } else if (name === "stock") {
       setFormData({ ...formData, [name]: parseInt(value) || 0 });
@@ -91,9 +96,15 @@ export default function AdminProducts() {
       }
 
       const productData = {
-        ...formData,
+        name: formData.name,
         price: parseFloat(formData.price),
-        image_url: imageUrl,
+        image: imageUrl || formData.image,
+        image_url: imageUrl || formData.image_url,
+        description: formData.description,
+        category: formData.category,
+        sizes: Array.isArray(formData.sizes) ? formData.sizes : [],
+        colors: Array.isArray(formData.colors) ? formData.colors : [],
+        stock: parseInt(formData.stock) || 0,
       };
 
       if (editingProduct) {
@@ -108,10 +119,12 @@ export default function AdminProducts() {
       setFormData({
         name: "",
         price: "",
+        image: "",
         image_url: "",
         description: "",
         category: "",
         sizes: [],
+        colors: [],
         stock: "",
       });
       setImageFile(null);
@@ -124,13 +137,15 @@ export default function AdminProducts() {
   const handleEdit = (product) => {
     setEditingProduct(product);
     setFormData({
-      name: product.name,
-      price: product.price.toString(),
-      image_url: product.image_url,
-      description: product.description,
+      name: product.name || "",
+      price: product.price ? product.price.toString() : "",
+      image: product.image || "",
+      image_url: product.image_url || "",
+      description: product.description || "",
       category: product.category || "",
-      sizes: product.sizes,
-      stock: product.stock.toString(),
+      sizes: Array.isArray(product.sizes) ? product.sizes : [],
+      colors: Array.isArray(product.colors) ? product.colors : [],
+      stock: product.stock ? product.stock.toString() : "0",
     });
     setShowForm(true);
   };
@@ -162,155 +177,171 @@ export default function AdminProducts() {
       </div>
     );
   }
-}
 
-return (
-  <div className="min-h-screen bg-gray-50 p-6">
-    <div className="max-w-7xl mx-auto">
-      {/* Back Button */}
-      <button
-        onClick={() => router.push("/admin")}
-        className="mb-6 flex items-center text-gray-600 hover:text-black transition-colors"
-      >
-        <svg
-          className="w-5 h-5 mr-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-        Back to Dashboard
-      </button>
-
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-black">Product Management</h1>
-          <p className="text-gray-600 mt-1">Manage your Steezy products</p>
-        </div>
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
         <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold"
+          onClick={() => router.push("/admin")}
+          className="mb-6 flex items-center text-gray-600 hover:text-black transition-colors"
         >
-          {showForm ? "Cancel" : "+ Add Product"}
-        </button>
-      </div>
-
-      {showForm && (
-        <form onSubmit={handleSubmit} className="mb-6 p-4 border rounded">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Product Name"
-              value={formData.name}
-              onChange={handleFormChange}
-              required
-              className="border p-2 rounded"
-            />
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              value={formData.price}
-              onChange={handleFormChange}
-              required
-              step="0.01"
-              className="border p-2 rounded"
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="text"
-              name="sizes"
-              placeholder="Sizes (comma separated)"
-              value={formData.sizes.join(", ")}
-              onChange={handleFormChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="text"
-              name="category"
-              placeholder="Category"
-              value={formData.category}
-              onChange={handleFormChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="number"
-              name="stock"
-              placeholder="Stock Quantity"
-              value={formData.stock}
-              onChange={handleFormChange}
-              required
-              min="0"
-              className="border p-2 rounded"
-            />
-          </div>
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleFormChange}
-            required
-            className="w-full border p-2 rounded mt-4"
-            rows="3"
-          />
-          <button
-            type="submit"
-            className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            {editingProduct ? "Update Product" : "Add Product"}
-          </button>
-        </form>
-      )}
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back to Dashboard
+        </button>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2">ID</th>
-              <th className="border p-2">Name</th>
-              <th className="border p-2">Price</th>
-              <th className="border p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td className="border p-2">{product.id}</td>
-                <td className="border p-2">{product.name}</td>
-                <td className="border p-2">
-                  ₱{product.price.toLocaleString()}
-                </td>
-                <td className="border p-2">
-                  <button
-                    onClick={() => handleEdit(product)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-black">
+              Product Management
+            </h1>
+            <p className="text-gray-600 mt-1">Manage your Steezy products</p>
+          </div>
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold"
+          >
+            {showForm ? "Cancel" : "+ Add Product"}
+          </button>
+        </div>
+
+        {showForm && (
+          <form onSubmit={handleSubmit} className="mb-6 p-4 border rounded">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Product Name"
+                value={formData.name}
+                onChange={handleFormChange}
+                required
+                className="border p-2 rounded"
+              />
+              <input
+                type="number"
+                name="price"
+                placeholder="Price"
+                value={formData.price}
+                onChange={handleFormChange}
+                required
+                step="0.01"
+                className="border p-2 rounded"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="sizes"
+                placeholder="Sizes (comma separated: S, M, L, XL)"
+                value={
+                  Array.isArray(formData.sizes) ? formData.sizes.join(", ") : ""
+                }
+                onChange={handleFormChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="colors"
+                placeholder="Colors (comma separated: Black, White)"
+                value={
+                  Array.isArray(formData.colors)
+                    ? formData.colors.join(", ")
+                    : ""
+                }
+                onChange={handleFormChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="category"
+                placeholder="Category"
+                value={formData.category}
+                onChange={handleFormChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="number"
+                name="stock"
+                placeholder="Stock Quantity"
+                value={formData.stock}
+                onChange={handleFormChange}
+                required
+                min="0"
+                className="border p-2 rounded"
+              />
+            </div>
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={formData.description}
+              onChange={handleFormChange}
+              required
+              className="w-full border p-2 rounded mt-4"
+              rows="3"
+            />
+            <button
+              type="submit"
+              className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              {editingProduct ? "Update Product" : "Add Product"}
+            </button>
+          </form>
+        )}
+
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border p-2">ID</th>
+                <th className="border p-2">Name</th>
+                <th className="border p-2">Price</th>
+                <th className="border p-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td className="border p-2">{product.id}</td>
+                  <td className="border p-2">{product.name}</td>
+                  <td className="border p-2">
+                    ₱{product.price.toLocaleString()}
+                  </td>
+                  <td className="border p-2">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+}
