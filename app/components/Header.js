@@ -41,7 +41,7 @@ export default function Header() {
     e.preventDefault();
     const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
       closeMobileMenu();
     }
   };
@@ -63,7 +63,7 @@ export default function Header() {
           <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <a
               href="#home"
-              onClick={(e) => handleNavClick(e, 'home')}
+              onClick={(e) => handleNavClick(e, "home")}
               className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
@@ -71,7 +71,7 @@ export default function Header() {
             </a>
             <a
               href="#products"
-              onClick={(e) => handleNavClick(e, 'products')}
+              onClick={(e) => handleNavClick(e, "products")}
               className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
@@ -79,7 +79,7 @@ export default function Header() {
             </a>
             <a
               href="#about"
-              onClick={(e) => handleNavClick(e, 'about')}
+              onClick={(e) => handleNavClick(e, "about")}
               className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
@@ -87,7 +87,7 @@ export default function Header() {
             </a>
             <a
               href="#contact"
-              onClick={(e) => handleNavClick(e, 'contact')}
+              onClick={(e) => handleNavClick(e, "contact")}
               className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
@@ -185,7 +185,7 @@ export default function Header() {
             <div className="flex flex-col space-y-4">
               <a
                 href="#home"
-                onClick={(e) => handleNavClick(e, 'home')}
+                onClick={(e) => handleNavClick(e, "home")}
                 className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
@@ -193,7 +193,7 @@ export default function Header() {
               </a>
               <a
                 href="#products"
-                onClick={(e) => handleNavClick(e, 'products')}
+                onClick={(e) => handleNavClick(e, "products")}
                 className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
@@ -201,7 +201,7 @@ export default function Header() {
               </a>
               <a
                 href="#about"
-                onClick={(e) => handleNavClick(e, 'about')}
+                onClick={(e) => handleNavClick(e, "about")}
                 className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
@@ -209,7 +209,7 @@ export default function Header() {
               </a>
               <a
                 href="#contact"
-                onClick={(e) => handleNavClick(e, 'contact')}
+                onClick={(e) => handleNavClick(e, "contact")}
                 className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
