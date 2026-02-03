@@ -34,10 +34,29 @@ export default function ProductDetail() {
     fetchProduct();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-black border-t-transparent"></div>
+      </div>
+    );
 
   if (!product) {
-    return <div>Product not found</div>;
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-black mb-4">
+            Product not found
+          </h1>
+          <a
+            href="/#products"
+            className="text-black underline hover:no-underline"
+          >
+            Go back to products
+          </a>
+        </div>
+      </div>
+    );
   }
 
   const handleAddToCart = () => {
@@ -46,49 +65,49 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-white py-16">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div className="min-h-screen bg-gray-50 py-8 sm:py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Image */}
-          <div className="bg-gray-100 rounded-lg p-8 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm">
             <img
               src={product.image || product.image_url}
               alt={product.name}
-              className="w-full h-auto object-contain max-h-[600px]"
+              className="w-full h-auto object-contain max-h-[400px] sm:max-h-[600px]"
             />
           </div>
 
           {/* Product Details */}
-          <div className="flex flex-col">
-            <div className="mb-6">
-              <p className="text-sm text-gray-500 uppercase tracking-wide mb-2">
+          <div className="flex flex-col space-y-6">
+            <div>
+              <p className="text-xs sm:text-sm text-gray-500 uppercase tracking-wide mb-2">
                 {product.category}
               </p>
-              <h1 className="text-5xl font-bold mb-4 text-black">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-black">
                 {product.name}
               </h1>
-              <p className="text-4xl font-bold text-black mb-6">
+              <p className="text-3xl sm:text-4xl font-bold text-black mb-4 sm:mb-6">
                 ₱{product.price.toLocaleString()}
               </p>
             </div>
 
-            <div className="mb-8">
-              <p className="text-lg text-gray-600 leading-relaxed">
+            <div>
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                 {product.description}
               </p>
             </div>
 
             {/* Size Selection */}
-            <div className="mb-8">
-              <label className="block text-lg font-semibold mb-4 text-black">
+            <div>
+              <label className="block text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-black">
                 SELECT SIZE
               </label>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-4 gap-2 sm:gap-3">
                 {product.sizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`py-3 text-center border-2 font-semibold transition-all ${
+                    className={`py-2 sm:py-3 text-center border-2 font-semibold transition-all text-sm sm:text-base rounded-lg ${
                       selectedSize === size
                         ? "border-black bg-black text-white"
                         : "border-gray-300 text-black hover:border-black"
@@ -101,7 +120,7 @@ export default function ProductDetail() {
             </div>
 
             {/* Stock Status */}
-            <div className="mb-8">
+            <div>
               {product.stock > 0 ? (
                 <div className="flex items-center text-green-600">
                   <svg
@@ -115,13 +134,15 @@ export default function ProductDetail() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="font-semibold">
+                  <span className="font-semibold text-sm sm:text-base">
                     In Stock ({product.stock} available)
                   </span>
                 </div>
               ) : (
                 <div className="flex items-center text-red-600">
-                  <span className="font-semibold">Out of Stock</span>
+                  <span className="font-semibold text-sm sm:text-base">
+                    Out of Stock
+                  </span>
                 </div>
               )}
             </div>
@@ -130,17 +151,17 @@ export default function ProductDetail() {
             <button
               onClick={handleAddToCart}
               disabled={product.stock <= 0}
-              className="w-full bg-black hover:bg-gray-800 text-white py-5 text-xl font-bold transition-all duration-300 hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed"
+              className="w-full bg-black hover:bg-gray-800 text-white py-4 sm:py-5 text-lg sm:text-xl font-bold transition-all duration-300 hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed rounded-lg"
             >
               {product.stock > 0 ? "ADD TO CART" : "OUT OF STOCK"}
             </button>
 
             {/* Product Info */}
-            <div className="mt-8 pt-8 border-t border-gray-200">
-              <div className="space-y-4 text-sm text-gray-600">
+            <div className="mt-4 sm:mt-8 pt-4 sm:pt-8 border-t border-gray-200">
+              <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-gray-600">
                 <div className="flex items-center">
                   <svg
-                    className="w-5 h-5 mr-3"
+                    className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

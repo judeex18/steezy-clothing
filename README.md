@@ -55,6 +55,7 @@ npm install
 See detailed instructions in [DEPLOYMENT.md](DEPLOYMENT.md)
 
 Quick start:
+
 1. Create a Supabase project at [supabase.com](https://supabase.com)
 2. Run the SQL schema from DEPLOYMENT.md in your SQL Editor
 3. Copy your project URL and anon key
@@ -113,6 +114,7 @@ steezy-clothing/
 ### Manual Deployment
 
 See [DEPLOYMENT.md](DEPLOYMENT.md) for complete step-by-step instructions including:
+
 - Supabase database setup
 - GitHub repository creation
 - Vercel deployment
@@ -121,13 +123,16 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for complete step-by-step instructions includ
 ## 🛒 Features Walkthrough
 
 ### Single-Page Experience
+
 Navigate seamlessly between sections with smooth scroll:
+
 - **Home** (#home) - Hero section with brand intro
 - **Products** (#products) - Full product catalog
 - **About** (#about) - Brand story and values
 - **Contact** (#contact) - Get in touch form
 
 ### Shopping Flow
+
 1. Browse products on the home page or products section
 2. Click a product to view details
 3. Select size and add to cart
@@ -148,6 +153,7 @@ npm run lint     # Run ESLint
 ## 🎨 Customization
 
 ### Adding Products via Admin Panel
+
 1. Navigate to `/admin`
 2. Enter admin credentials (set up in Supabase Auth)
 3. Go to Products Management
@@ -155,6 +161,7 @@ npm run lint     # Run ESLint
 5. Upload images and fill in details
 
 ### Modifying Styles
+
 - Edit `app/globals.css` for global styles
 - Tailwind classes are used throughout components
 - Smooth scroll behavior: `.nav-link.active` in globals.css

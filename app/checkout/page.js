@@ -56,12 +56,14 @@ export default function Checkout() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4 text-black">Cart is Empty</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-black">
+            Cart is Empty
+          </h1>
           <a
-            href="/products"
-            className="bg-black text-white px-8 py-3 font-semibold hover:bg-gray-800 transition-colors inline-block"
+            href="/#products"
+            className="bg-black text-white px-8 py-3 font-semibold hover:bg-gray-800 transition-colors inline-block rounded-lg"
           >
             SHOP NOW
           </a>
@@ -71,20 +73,22 @@ export default function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-white py-16">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <h1 className="text-6xl font-bold mb-12 text-black">CHECKOUT</h1>
+    <div className="min-h-screen bg-gray-50 py-8 sm:py-12 lg:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold mb-8 sm:mb-12 text-black">
+          CHECKOUT
+        </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Form */}
           <div>
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
               {/* Shipping Information */}
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h2 className="text-2xl font-bold mb-6 text-black">
+              <div className="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
+                <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-black">
                   SHIPPING INFORMATION
                 </h2>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <input
                     type="text"
                     name="name"
@@ -92,7 +96,7 @@ export default function Checkout() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors"
+                    className="w-full border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors text-sm sm:text-base"
                   />
                   <input
                     type="email"
@@ -101,7 +105,7 @@ export default function Checkout() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors"
+                    className="w-full border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors text-sm sm:text-base"
                   />
                   <input
                     type="tel"
@@ -110,7 +114,7 @@ export default function Checkout() {
                     value={formData.phone}
                     onChange={handleChange}
                     required
-                    className="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors"
+                    className="w-full border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors text-sm sm:text-base"
                   />
                   <input
                     type="text"
@@ -119,9 +123,9 @@ export default function Checkout() {
                     value={formData.address}
                     onChange={handleChange}
                     required
-                    className="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors"
+                    className="w-full border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors text-sm sm:text-base"
                   />
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4">
                     <input
                       type="text"
                       name="city"
@@ -129,7 +133,7 @@ export default function Checkout() {
                       value={formData.city}
                       onChange={handleChange}
                       required
-                      className="border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors"
+                      className="border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors text-sm sm:text-base"
                     />
                     <input
                       type="text"
@@ -138,18 +142,18 @@ export default function Checkout() {
                       value={formData.zip}
                       onChange={handleChange}
                       required
-                      className="border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors"
+                      className="border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors text-sm sm:text-base"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Payment Method */}
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h2 className="text-2xl font-bold mb-6 text-black">
+              <div className="bg-white p-6 sm:p-8 rounded-xl shadow-sm">
+                <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-black">
                   PAYMENT METHOD
                 </h2>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-black transition-colors">
                     <input
                       type="radio"
@@ -157,13 +161,13 @@ export default function Checkout() {
                       value="cod"
                       checked={formData.paymentMethod === "cod"}
                       onChange={handleChange}
-                      className="mr-4 w-5 h-5"
+                      className="mr-3 sm:mr-4 w-4 h-4 sm:w-5 sm:h-5"
                     />
                     <div className="flex-grow">
-                      <span className="font-semibold text-lg">
+                      <span className="font-semibold text-base sm:text-lg">
                         Cash on Delivery
                       </span>
-                      <p className="text-gray-600 text-sm">
+                      <p className="text-gray-600 text-xs sm:text-sm">
                         Pay when you receive your order
                       </p>
                     </div>
@@ -175,11 +179,13 @@ export default function Checkout() {
                       value="gcash"
                       checked={formData.paymentMethod === "gcash"}
                       onChange={handleChange}
-                      className="mr-4 w-5 h-5"
+                      className="mr-3 sm:mr-4 w-4 h-4 sm:w-5 sm:h-5"
                     />
                     <div className="flex-grow">
-                      <span className="font-semibold text-lg">GCash</span>
-                      <p className="text-gray-600 text-sm">
+                      <span className="font-semibold text-base sm:text-lg">
+                        GCash
+                      </span>
+                      <p className="text-gray-600 text-xs sm:text-sm">
                         Digital wallet payment
                       </p>
                     </div>
@@ -193,7 +199,7 @@ export default function Checkout() {
                       value={formData.gcashNumber}
                       onChange={handleChange}
                       required
-                      className="w-full border-2 border-gray-300 p-4 rounded-lg focus:border-black focus:outline-none transition-colors mt-4"
+                      className="w-full border-2 border-gray-300 p-3 sm:p-4 rounded-lg focus:border-black focus:outline-none transition-colors mt-4 text-sm sm:text-base"
                     />
                   )}
                 </div>
@@ -201,7 +207,7 @@ export default function Checkout() {
 
               <button
                 type="submit"
-                className="w-full bg-black text-white py-5 text-xl font-bold hover:bg-gray-800 transition-colors rounded-lg"
+                className="w-full bg-black text-white py-4 sm:py-5 text-lg sm:text-xl font-bold hover:bg-gray-800 transition-colors rounded-lg shadow-lg hover:shadow-xl"
               >
                 PLACE ORDER
               </button>
@@ -210,30 +216,32 @@ export default function Checkout() {
 
           {/* Right Column - Order Summary */}
           <div>
-            <div className="bg-gray-50 p-8 rounded-lg sticky top-24">
-              <h2 className="text-2xl font-bold mb-6 text-black">
+            <div className="bg-white p-6 sm:p-8 rounded-xl lg:sticky lg:top-24 shadow-sm">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-black">
                 ORDER SUMMARY
               </h2>
 
-              <div className="space-y-4 mb-6 max-h-96 overflow-y-auto">
+              <div className="space-y-4 mb-6 max-h-64 sm:max-h-96 overflow-y-auto">
                 {cart.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-4 pb-4 border-b border-gray-200"
+                    className="flex items-center gap-3 sm:gap-4 pb-4 border-b border-gray-200"
                   >
-                    <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <img
                         src={item.image || item.image_url}
                         alt={item.name}
                         className="w-full h-full object-contain p-2"
                       />
                     </div>
-                    <div className="flex-grow">
-                      <h3 className="font-semibold text-black">{item.name}</h3>
-                      <p className="text-gray-600 text-sm">
+                    <div className="flex-grow min-w-0">
+                      <h3 className="font-semibold text-black text-sm sm:text-base truncate">
+                        {item.name}
+                      </h3>
+                      <p className="text-gray-600 text-xs sm:text-sm">
                         Size: {item.size} | Qty: {item.quantity}
                       </p>
-                      <p className="font-bold text-black">
+                      <p className="font-bold text-black text-sm sm:text-base">
                         ₱{(item.price * item.quantity).toLocaleString()}
                       </p>
                     </div>
@@ -242,20 +250,22 @@ export default function Checkout() {
               </div>
 
               <div className="space-y-3 mb-6 pt-6 border-t-2 border-gray-300">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-600 text-sm sm:text-base">
                   <span>Subtotal</span>
                   <span className="font-semibold">
                     ₱{getTotal().toLocaleString()}
                   </span>
                 </div>
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-600 text-sm sm:text-base">
                   <span>Shipping</span>
                   <span className="font-semibold text-green-600">FREE</span>
                 </div>
                 <div className="border-t-2 border-gray-300 pt-3">
                   <div className="flex justify-between">
-                    <span className="text-xl font-bold text-black">Total</span>
-                    <span className="text-3xl font-bold text-black">
+                    <span className="text-lg sm:text-xl font-bold text-black">
+                      Total
+                    </span>
+                    <span className="text-2xl sm:text-3xl font-bold text-black">
                       ₱{getTotal().toLocaleString()}
                     </span>
                   </div>
