@@ -43,15 +43,21 @@ export default function Header() {
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     closeMobileMenu();
-    
+
+    // Add loading state animation
+    e.currentTarget.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      e.currentTarget.style.transform = 'scale(1)';
+    }, 150);
+
     // If not on home page, navigate to home with hash
-    if (pathname !== '/') {
+    if (pathname !== "/") {
       router.push(`/#${targetId}`);
     } else {
       // Already on home page, just scroll
       const element = document.getElementById(targetId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   };

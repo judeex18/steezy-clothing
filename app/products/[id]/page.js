@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useCartStore } from "../../store/cartStore";
 import { useState, useEffect } from "react";
 import { getProduct } from "../../lib/supabase";
+import AddToCartModal from "../../components/AddToCartModal";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -11,6 +12,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -66,7 +68,7 @@ export default function ProductDetail() {
 
   const handleAddToCart = () => {
     addToCart(product, selectedSize);
-    alert("Added to cart!");
+    setShowModal(true);
   };
 
   return (
@@ -217,6 +219,13 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {/* Add to Cart Modal */}
+      <AddToCartModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        product={product}
+      />
     </div>
   );
 }
