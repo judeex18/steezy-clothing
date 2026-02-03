@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import Image from "next/image";
 import { useCartStore } from "../../store/cartStore";
 import { useState, useEffect } from "react";
 import { getProduct } from "../../lib/supabase";
@@ -15,16 +16,21 @@ export default function ProductDetail() {
   useEffect(() => {
     async function fetchProduct() {
       try {
+        // Try Supabase first
         const data = await getProduct(parseInt(id));
-        setProduct(data);
-        setSelectedSize(data.sizes[0] || "");
+        if (data && data.stock !== undefined) {
+          setProduct(data);
+          setSelectedSize(data.sizes[0] || "");
+        } else {
+          throw new Error("Product not found in database");
+        }
       } catch (error) {
-        console.error("Error fetching product:", error);
-        // Fallback to mock
+        console.error("Error fetching product, using mock data:", error);
+        // Fallback to mock data
         const { products: mockProducts } = await import("../../data/products");
         const mockProduct = mockProducts.find((p) => p.id === parseInt(id));
-        setProduct(mockProduct);
         if (mockProduct) {
+          setProduct(mockProduct);
           setSelectedSize(mockProduct.sizes[0] || "");
         }
       } finally {
@@ -70,10 +76,13 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Image */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm">
-            <img
-              src={product.image || product.image_url}
+            <Image
+              src={product.image || product.image_url || "/placeholder.jpg"}
               alt={product.name}
+              width={600}
+              height={600}
               className="w-full h-auto object-contain max-h-[400px] sm:max-h-[600px]"
+              unoptimized
             />
           </div>
 

@@ -37,6 +37,15 @@ export default function Header() {
     setMobileMenuOpen(false);
   };
 
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeMobileMenu();
+    }
+  };
+
   return (
     <header className="bg-black text-white shadow-lg border-b border-gray-800 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,28 +63,32 @@ export default function Header() {
           <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <a
               href="#home"
-              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base"
+              onClick={(e) => handleNavClick(e, 'home')}
+              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
               Home
             </a>
             <a
               href="#products"
-              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base"
+              onClick={(e) => handleNavClick(e, 'products')}
+              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
               Products
             </a>
             <a
               href="#about"
-              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base"
+              onClick={(e) => handleNavClick(e, 'about')}
+              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
               About Us
             </a>
             <a
               href="#contact"
-              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base"
+              onClick={(e) => handleNavClick(e, 'contact')}
+              className="nav-link hover:text-gray-300 transition-colors font-medium text-sm xl:text-base cursor-pointer"
               style={{ fontFamily: "Righteous, cursive" }}
             >
               Contact Us
@@ -172,32 +185,32 @@ export default function Header() {
             <div className="flex flex-col space-y-4">
               <a
                 href="#home"
-                onClick={closeMobileMenu}
-                className="nav-link hover:text-gray-300 transition-colors font-medium"
+                onClick={(e) => handleNavClick(e, 'home')}
+                className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
                 Home
               </a>
               <a
                 href="#products"
-                onClick={closeMobileMenu}
-                className="nav-link hover:text-gray-300 transition-colors font-medium"
+                onClick={(e) => handleNavClick(e, 'products')}
+                className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
                 Products
               </a>
               <a
                 href="#about"
-                onClick={closeMobileMenu}
-                className="nav-link hover:text-gray-300 transition-colors font-medium"
+                onClick={(e) => handleNavClick(e, 'about')}
+                className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
                 About Us
               </a>
               <a
                 href="#contact"
-                onClick={closeMobileMenu}
-                className="nav-link hover:text-gray-300 transition-colors font-medium"
+                onClick={(e) => handleNavClick(e, 'contact')}
+                className="nav-link hover:text-gray-300 transition-colors font-medium cursor-pointer"
                 style={{ fontFamily: "Righteous, cursive" }}
               >
                 Contact Us
