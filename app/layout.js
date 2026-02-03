@@ -1,4 +1,7 @@
+"use client";
+
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -18,12 +21,10 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Steezy",
-  description: "Minimal. Modern. Streetwear. Discover premium urban fashion.",
-};
-
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith("/admin");
+
   return (
     <html lang="en">
       <head>
@@ -44,9 +45,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Header />
+        {!isAdminPage && <Header />}
         <main className="flex-grow">{children}</main>
-        <Footer />
+        {!isAdminPage && <Footer />}
       </body>
     </html>
   );
