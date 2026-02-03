@@ -36,7 +36,7 @@ export default function AdminProducts() {
       } = await supabase.auth.getUser();
       
       if (!user) {
-        router.push("/admin/login");
+        router.push("/admin");
         return;
       }
       
@@ -145,7 +145,7 @@ export default function AdminProducts() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/admin/login");
+    router.push("/admin");
   };
 
   if (loading) return <div>Loading...</div>;
