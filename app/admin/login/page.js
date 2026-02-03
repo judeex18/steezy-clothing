@@ -38,9 +38,7 @@ export default function AdminLogin() {
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-black mb-2">Admin Login</h1>
-            <p className="text-gray-600">
-              Sign in to manage your Steezy store
-            </p>
+            <p className="text-gray-600">Sign in to manage your Steezy store</p>
           </div>
 
           {error && (
