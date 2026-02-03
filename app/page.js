@@ -27,14 +27,30 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Load mock products directly for now
+    // Load products from Supabase database
     async function loadProducts() {
       try {
-        const { products: mockProducts } = await import("./data/products");
-        setProducts(mockProducts);
+        const data = await getProducts();
+        if (data && data.length > 0) {
+          setProducts(data);
+        } else {
+          // Fallback to mock if database is empty
+          const { products: mockProducts } = await import("./data/products");
+          setProducts(mockProducts);
+        }
       } catch (error) {
-        console.error("Error loading products:", error);
-        setProducts([]);
+        console.error(
+          "Error loading products from database, using mock:",
+          error,
+        );
+        // Fallback to mock data if database fails
+        try {
+          const { products: mockProducts } = await import("./data/products");
+          setProducts(mockProducts);
+        } catch (fallbackError) {
+          console.error("Error loading mock products:", fallbackError);
+          setProducts([]);
+        }
       } finally {
         setLoading(false);
       }

@@ -191,6 +191,25 @@ export default function Checkout() {
                     </div>
                   </label>
 
+                  <label className="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-black transition-colors">
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="cop"
+                      checked={formData.paymentMethod === "cop"}
+                      onChange={handleChange}
+                      className="mr-3 sm:mr-4 w-4 h-4 sm:w-5 sm:h-5"
+                    />
+                    <div className="flex-grow">
+                      <span className="font-semibold text-base sm:text-lg">
+                        Cash on Pickup
+                      </span>
+                      <p className="text-gray-600 text-xs sm:text-sm">
+                        Pay when you pick up at our store
+                      </p>
+                    </div>
+                  </label>
+
                   {formData.paymentMethod === "gcash" && (
                     <input
                       type="text"
