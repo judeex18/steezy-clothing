@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import Image from "next/image";
 import { useCartStore } from "../../store/cartStore";
 import { useState, useEffect } from "react";
 import { getProduct } from "../../lib/supabase";
@@ -76,13 +75,10 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Product Image */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 flex items-center justify-center shadow-sm">
-            <Image
+            <img
               src={product.image || product.image_url || "/placeholder.jpg"}
               alt={product.name}
-              width={600}
-              height={600}
               className="w-full h-auto object-contain max-h-[400px] sm:max-h-[600px]"
-              unoptimized
             />
           </div>
 
