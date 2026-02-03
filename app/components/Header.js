@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import { useCartStore } from "../store/cartStore";
 
 export default function Header() {
   const cart = useCartStore((state) => state.cart);
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const sections = document.querySelectorAll("section[id]");
@@ -39,10 +42,17 @@ export default function Header() {
 
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-      closeMobileMenu();
+    closeMobileMenu();
+    
+    // If not on home page, navigate to home with hash
+    if (pathname !== '/') {
+      router.push(`/#${targetId}`);
+    } else {
+      // Already on home page, just scroll
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   };
 
