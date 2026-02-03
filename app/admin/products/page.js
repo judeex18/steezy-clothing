@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   supabase,
   getProducts,
@@ -11,6 +12,7 @@ import {
 } from "../../lib/supabase";
 
 export default function AdminProducts() {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,14 +34,18 @@ export default function AdminProducts() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      setUser(user);
-      if (user) {
-        await loadProducts();
+      
+      if (!user) {
+        router.push("/admin/login");
+        return;
       }
+      
+      setUser(user);
+      await loadProducts();
       setLoading(false);
     };
     checkUser();
-  }, []);
+  }, [router]);
 
   const loadProducts = async () => {
     try {
@@ -137,6 +143,11 @@ export default function AdminProducts() {
     }
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/admin/login");
+  };
+
   if (loading) return <div>Loading...</div>;
 
   if (!user) {
@@ -149,16 +160,28 @@ export default function AdminProducts() {
   }
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Admin - Products</h1>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          {showForm ? "Cancel" : "Add Product"}
-        </button>
-      </div>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-black">Product Management</h1>
+            <p className="text-gray-600 mt-1">Manage your Steezy products</p>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors font-semibold"
+            >
+              {showForm ? "Cancel" : "+ Add Product"}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-semibold"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
 
       {showForm && (
         <form onSubmit={handleSubmit} className="mb-6 p-4 border rounded">
