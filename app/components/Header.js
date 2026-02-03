@@ -45,9 +45,9 @@ export default function Header() {
     closeMobileMenu();
 
     // Add loading state animation
-    e.currentTarget.style.transform = 'scale(0.95)';
+    e.currentTarget.style.transform = "scale(0.95)";
     setTimeout(() => {
-      e.currentTarget.style.transform = 'scale(1)';
+      e.currentTarget.style.transform = "scale(1)";
     }, 150);
 
     // If not on home page, navigate to home with hash
