@@ -34,12 +34,12 @@ export default function AdminProducts() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      
+
       if (!user) {
         router.push("/admin");
         return;
       }
-      
+
       setUser(user);
       await loadProducts();
       setLoading(false);
@@ -164,7 +164,9 @@ export default function AdminProducts() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-black">Product Management</h1>
+            <h1 className="text-3xl font-bold text-black">
+              Product Management
+            </h1>
             <p className="text-gray-600 mt-1">Manage your Steezy products</p>
           </div>
           <div className="flex gap-3">
@@ -183,115 +185,116 @@ export default function AdminProducts() {
           </div>
         </div>
 
-      {showForm && (
-        <form onSubmit={handleSubmit} className="mb-6 p-4 border rounded">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Product Name"
-              value={formData.name}
+        {showForm && (
+          <form onSubmit={handleSubmit} className="mb-6 p-4 border rounded">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Product Name"
+                value={formData.name}
+                onChange={handleFormChange}
+                required
+                className="border p-2 rounded"
+              />
+              <input
+                type="number"
+                name="price"
+                placeholder="Price"
+                value={formData.price}
+                onChange={handleFormChange}
+                required
+                step="0.01"
+                className="border p-2 rounded"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="sizes"
+                placeholder="Sizes (comma separated)"
+                value={formData.sizes.join(", ")}
+                onChange={handleFormChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="category"
+                placeholder="Category"
+                value={formData.category}
+                onChange={handleFormChange}
+                className="border p-2 rounded"
+              />
+              <input
+                type="number"
+                name="stock"
+                placeholder="Stock Quantity"
+                value={formData.stock}
+                onChange={handleFormChange}
+                required
+                min="0"
+                className="border p-2 rounded"
+              />
+            </div>
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={formData.description}
               onChange={handleFormChange}
               required
-              className="border p-2 rounded"
+              className="w-full border p-2 rounded mt-4"
+              rows="3"
             />
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              value={formData.price}
-              onChange={handleFormChange}
-              required
-              step="0.01"
-              className="border p-2 rounded"
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="text"
-              name="sizes"
-              placeholder="Sizes (comma separated)"
-              value={formData.sizes.join(", ")}
-              onChange={handleFormChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="text"
-              name="category"
-              placeholder="Category"
-              value={formData.category}
-              onChange={handleFormChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="number"
-              name="stock"
-              placeholder="Stock Quantity"
-              value={formData.stock}
-              onChange={handleFormChange}
-              required
-              min="0"
-              className="border p-2 rounded"
-            />
-          </div>
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleFormChange}
-            required
-            className="w-full border p-2 rounded mt-4"
-            rows="3"
-          />
-          <button
-            type="submit"
-            className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-          >
-            {editingProduct ? "Update Product" : "Add Product"}
-          </button>
-        </form>
-      )}
+            <button
+              type="submit"
+              className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              {editingProduct ? "Update Product" : "Add Product"}
+            </button>
+          </form>
+        )}
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2">ID</th>
-              <th className="border p-2">Name</th>
-              <th className="border p-2">Price</th>
-              <th className="border p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td className="border p-2">{product.id}</td>
-                <td className="border p-2">{product.name}</td>
-                <td className="border p-2">
-                  ₱{product.price.toLocaleString()}
-                </td>
-                <td className="border p-2">
-                  <button
-                    onClick={() => handleEdit(product)}
-                    className="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border p-2">ID</th>
+                <th className="border p-2">Name</th>
+                <th className="border p-2">Price</th>
+                <th className="border p-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td className="border p-2">{product.id}</td>
+                  <td className="border p-2">{product.name}</td>
+                  <td className="border p-2">
+                    ₱{product.price.toLocaleString()}
+                  </td>
+                  <td className="border p-2">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
