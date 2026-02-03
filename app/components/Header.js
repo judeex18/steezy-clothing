@@ -64,19 +64,19 @@ export default function Header() {
 
   return (
     <header className="bg-black text-white shadow-lg border-b border-gray-800 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+      <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-16">
+        <div className="flex justify-between items-center h-16 sm:h-20 lg:h-24">
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0">
+          <Link href="/" className="flex items-center mr-auto">
             <img
               src="/logo.png"
               alt="STEEZY Logo"
-              className="h-12 sm:h-14 lg:h-16 w-auto object-contain hover:opacity-80 transition-opacity"
+              className="h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 w-auto object-contain hover:opacity-80 transition-opacity"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+          <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6 ml-auto">
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, "home")}
